@@ -1,40 +1,66 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import "../styles/components.css";
+import "../index.css";
 
-export default function Login() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState(null)
-  const { login } = useAuth()
-  const nav = useNavigate()
+const Login = () => {
+  const { login, loading } = useContext(AuthContext);
+  const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
-  const submit = async (e) => {
-    e.preventDefault()
-    try {
-      const res = await login(email, password)
-      if (res.token) {
-        // Redirect depending on role
-        const role = res.user.role
-        if (role === 'developer') nav('/freelancer')
-        else nav('/client')
-      } else {
-        setError(res.message || 'Login failed')
-      }
-    } catch (err) {
-      setError(err.response?.data?.message || String(err))
-    }
-  }
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const success = await login(form.email, form.password);
+    if (success) navigate("/home");
+  };
 
   return (
-    <div className="max-w-md mx-auto mt-24 p-6 bg-white rounded shadow">
-      <h2 className="text-2xl font-semibold mb-4">Login</h2>
-      {error && <div className="text-red-500 mb-2">{error}</div>}
-      <form onSubmit={submit} className="space-y-3">
-        <input value={email} onChange={e=>setEmail(e.target.value)} placeholder="Email" className="w-full p-2 border rounded"/>
-        <input value={password} onChange={e=>setPassword(e.target.value)} placeholder="Password" type="password" className="w-full p-2 border rounded"/>
-        <button className="w-full bg-sky-600 text-white p-2 rounded">Login</button>
-      </form>
+    <div className="login-container">
+      <div className="login-card">
+        <h1 className="app-title">SyncHub</h1>
+        <p className="subtitle">Connect. Collaborate. Create.</p>
+
+        <form onSubmit={handleSubmit} className="login-form">
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+            required
+          />
+          <button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+
+        <p className="signup-text">
+          Don’t have an account?{" "}
+          <Link to="/register" className="link">
+            Sign up
+          </Link>
+        </p>
+      </div>
+
+      <div className="login-background">
+        <div className="overlay"></div>
+        <h2 className="slogan">Find the right tech talent. Anywhere.</h2>
+      </div>
     </div>
-  )
-}
+  );
+};
+
+export default Login;
