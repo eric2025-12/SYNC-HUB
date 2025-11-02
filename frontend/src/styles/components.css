@@ -1,0 +1,50 @@
+/* Common card and layout styles */
+
+.profile-card,
+.job-card {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.profile-card:hover,
+.job-card:hover {
+  transform: scale(1.02);
+}
+
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.chat-btn {
+  background: #0066ff;
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.chat-btn:hover {
+  background: #004cc7;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #101010;
+  color: #ddd;
+}
+.footer a {
+  color: #4da3ff;
+  text-decoration: none;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
