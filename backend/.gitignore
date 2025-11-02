@@ -1,0 +1,128 @@
+# ============================================
+# PYTHON BACKEND .gitignore
+# For Flask / FastAPI / Django / SQLAlchemy
+# ============================================
+
+# --- Python cache ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Virtual environments ---
+venv/
+env/
+ENV/
+.venv/
+.Python
+
+# --- Distribution / packaging ---
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- PyInstaller ---
+# Usually contains build artifacts from PyInstaller builds
+*.manifest
+*.spec
+
+# --- Installer logs ---
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Unit test / coverage reports ---
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+test-results/
+
+# --- Jupyter Notebook checkpoints ---
+.ipynb_checkpoints
+
+# --- PyCharm / VSCode IDE settings ---
+.idea/
+.vscode/
+*.code-workspace
+
+# --- mypy / type checker ---
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# --- Pyre type checker ---
+.pyre/
+
+# --- pytype ---
+.pytype/
+
+# --- Cython debug symbols ---
+cython_debug/
+
+# --- Logs and temp files ---
+*.log
+*.tmp
+*.temp
+*.bak
+*.swp
+.DS_Store
+
+# --- SQLite and database files ---
+*.sqlite3
+*.db
+instance/
+migrations/
+
+# --- Alembic migrations (keep only if you use migrations folder) ---
+# Uncomment below if you want to keep migrations tracked
+# !migrations/versions/
+
+# --- Environment variables ---
+.env
+.env.*
+*.env
+
+# --- Local development configs ---
+*.local
+*.ini
+config.json
+secrets.json
+
+# --- Cache folders ---
+.cache/
+__pypackages__/
+
+# --- Backend specific ignores ---
+# Ignore compiled templates, uploads, etc.
+uploads/
+staticfiles/
+media/
+temp/
+
+# --- Backup and archive files ---
+*.tar
+*.zip
+*.gz
+*.rar
+*.7z
