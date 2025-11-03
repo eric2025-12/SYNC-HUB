@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
-import { postJob } from '../services/jobService'
+import { postJob } from "../services/jobService";
+
 import { useNavigate } from 'react-router-dom'
 
 export default function PostJob(){

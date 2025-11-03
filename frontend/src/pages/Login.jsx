@@ -1,12 +1,14 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext"; // Use named hook
 import "../styles/components.css";
 import "../index.css";
 
 const Login = () => {
-  const { login, loading } = useContext(AuthContext);
+  const { login } = useAuth(); // access login from context
   const [form, setForm] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -15,8 +17,21 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await login(form.email, form.password);
-    if (success) navigate("/home");
+    setLoading(true);
+    setError("");
+    try {
+      const res = await login(form.email, form.password);
+      if (res?.token) {
+        navigate("/home");
+      } else {
+        setError(res?.message || "Login failed");
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setError(err.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -24,6 +39,8 @@ const Login = () => {
       <div className="login-card">
         <h1 className="app-title">SyncHub</h1>
         <p className="subtitle">Connect. Collaborate. Create.</p>
+
+        {error && <p className="text-red-600 mb-2">{error}</p>}
 
         <form onSubmit={handleSubmit} className="login-form">
           <input
@@ -42,14 +59,18 @@ const Login = () => {
             onChange={handleChange}
             required
           />
-          <button type="submit" disabled={loading}>
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-sky-500 text-white px-4 py-2 rounded hover:bg-sky-600 transition"
+          >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <p className="signup-text">
+        <p className="signup-text mt-4">
           Don’t have an account?{" "}
-          <Link to="/register" className="link">
+          <Link to="/register" className="link text-sky-600 hover:underline">
             Sign up
           </Link>
         </p>
